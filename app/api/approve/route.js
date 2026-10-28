@@ -24,9 +24,9 @@ const ALLOWED_STATUSES = new Set(Object.values(STATUS));
 const FOLLOW_UP_STATUSES = new Set([STATUS.APPLIED, STATUS.APPLIED_AUTO]);
 
 const RESUME_FILENAME_BY_LABEL = {
-  frontend_engineer: "Daniel_Chimezie_CV_Frontend_Engineer.pdf",
-  react_native: "Daniel_Chimezie_CV_React_Native_Developer.pdf",
-  product_engineer: "Daniel_Chimezie_CV_Product_Engineer.pdf",
+  fullstack_engineer: "Olatunji_Oladipupo_CV.pdf",
+  backend_engineer: "Olatunji_Oladipupo_CV.pdf",
+  frontend_engineer: "Olatunji_Oladipupo_CV.pdf",
 };
 
 export async function POST(request) {
@@ -63,7 +63,7 @@ export async function POST(request) {
             company: job.Company || "",
             resumeFile:
               RESUME_FILENAME_BY_LABEL[job["CV Version Used"]] ||
-              RESUME_FILENAME_BY_LABEL.frontend_engineer,
+              RESUME_FILENAME_BY_LABEL.fullstack_engineer,
           },
           emailMatch[0],
         );

@@ -16,9 +16,9 @@ const STATUS_COLOR = {
 };
 
 const CV_LABEL = {
+  fullstack_engineer: "Full-stack CV",
+  backend_engineer: "Backend CV",
   frontend_engineer: "Frontend CV",
-  react_native: "React Native CV",
-  product_engineer: "Product CV",
 };
 
 const TABS = [
@@ -54,7 +54,7 @@ function applyEmailOf(job) {
 }
 
 function KitPanel({ job, kit, copied, onCopy }) {
-  const cvKey = job["CV Version Used"] || "frontend_engineer";
+  const cvKey = job["CV Version Used"] || "fullstack_engineer";
   const summary = kit.summaries ? kit.summaries[cvKey] : null;
   const summaryKey = `${job._row}-summary`;
 
@@ -249,7 +249,7 @@ export default function Dashboard() {
       <div className="pageHead">
         <div>
           <h1 className="wordmark">Job Pipeline</h1>
-          <div className="tagline">Daniel&rsquo;s application tracker</div>
+          <div className="tagline">Olatunji&rsquo;s application tracker</div>
         </div>
         <div className="headActions">
           <button className="ghostBtn" onClick={loadJobs}>

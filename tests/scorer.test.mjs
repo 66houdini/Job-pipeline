@@ -19,8 +19,11 @@ test("the roles you are targeting pass the minimum score", () => {
     "Frontend Engineer",
     "Senior React Full-stack Developer",
     "Product Engineer",
-    "React Native Developer",
     "Software Engineer",
+    "Backend Developer",
+    "Senior back-end Engineer",
+    "Node.js Engineer",
+    "Full Stack Engineer",
   ]) {
     assert.ok(computeMatchScore(job(title)) >= MINIMUM, title);
   }
@@ -30,8 +33,9 @@ test("jobs that are not a fit fall below the minimum score", () => {
   for (const title of [
     "Support Engineer (EMEA)",
     "Developer Relations Engineer",
-    "Senior back-end Engineer",
-    "Backend Developer",
+    "Backend Engineer (Go)",
+    "Senior Java Backend Developer",
+    "Flutter Developer",
     "Senior .NET Full-stack Developer",
     "Senior Angular Full-stack Developer",
     "Senior Shopify Developer",
@@ -52,12 +56,12 @@ test("a full-stack role that mentions backend is not rejected", () => {
 
 test("the title decides which CV is used", () => {
   assert.equal(
-    pickCvVersion(job("React Native Developer")).cvKey,
-    "react_native",
+    pickCvVersion(job("Backend Developer")).cvKey,
+    "backend_engineer",
   );
   assert.equal(
     pickCvVersion(job("Full Stack Developer")).cvKey,
-    "product_engineer",
+    "fullstack_engineer",
   );
   assert.equal(
     pickCvVersion(job("Frontend Engineer")).cvKey,
@@ -72,11 +76,8 @@ test("a clear title is never flagged for manual CV review", () => {
   );
 });
 
-test("words must match whole: 'exposure' is not 'expo'", () => {
-  const j = job("Software Engineer", {
-    description: "Great exposure to many teams. " + skills,
-  });
-  assert.notEqual(pickCvVersion(j).cvKey, "react_native");
+test("words must match whole: 'Google' is not 'go'", () => {
+  assert.ok(computeMatchScore(job("Software Engineer at Google")) >= MINIMUM);
 });
 
 test("jobs with none of your core skills cannot pass on bonuses alone", () => {

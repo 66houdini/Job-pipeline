@@ -23,3 +23,5 @@ znotes.md
 .DS_Store
 Thumbs.db
 znotes.md
+# your CVs: this repo is public, keep them out of git
+resumes/*.pdf

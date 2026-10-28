@@ -1,24 +1,24 @@
 {
-  "_comment": "Used by lib/scorer.js to decide which of the 3 resumes to use for a job. Pass 1 is a title keyword match. Pass 2 cross-checks with skill-keyword overlap; if they disagree, the job is flagged for manual review instead of a silent guess.",
+  "_comment": "Used by lib/scorer.js to decide which resume to use for a job. Pass 1 is a title keyword match. Pass 2 cross-checks with skill-keyword overlap; if they disagree, the job is flagged for manual review instead of a silent guess. All three point at the same CV for now: make a tailored PDF per role later and change resumeFile.",
 
-  "react_native": {
-    "resumeFile": "Daniel_Chimezie_CV_React_Native_Developer.pdf",
-    "titleKeywords": ["react native", "mobile developer", "mobile application", "ios developer", "android developer", "expo", "flutter"],
-    "skillKeywords": ["react native", "expo", "swift", "kotlin", "app store", "google play", "mobile app"]
-  },
-
-  "product_engineer": {
-    "resumeFile": "Daniel_Chimezie_CV_Product_Engineer.pdf",
-    "titleKeywords": ["product engineer", "founding engineer", "full stack", "full-stack", "fullstack"],
-    "skillKeywords": ["full stack", "end to end", "ownership", "0 to 1", "ship fast", "founding team", "generalist"]
-  },
-
-  "frontend_engineer": {
-    "resumeFile": "Daniel_Chimezie_CV_Frontend_Engineer.pdf",
-    "titleKeywords": ["frontend", "front-end", "front end", "react developer", "ui engineer", "web developer"],
-    "skillKeywords": ["react", "next.js", "typescript", "tailwind", "css", "web application"],
+  "fullstack_engineer": {
+    "resumeFile": "Olatunji_Oladipupo_CV.pdf",
+    "titleKeywords": ["full stack", "full-stack", "fullstack", "product engineer", "founding engineer"],
+    "skillKeywords": ["full stack", "end to end", "ownership", "next.js", "node.js", "postgresql"],
     "isDefault": true
   },
 
-  "notes": "frontend_engineer is the default/primary resume. Edit the keyword lists any time to improve matching as you see real results."
+  "backend_engineer": {
+    "resumeFile": "Olatunji_Oladipupo_CV.pdf",
+    "titleKeywords": ["backend", "back-end", "back end", "server-side", "server side", "api engineer", "node.js developer", "node.js engineer"],
+    "skillKeywords": ["node.js", "postgresql", "redis", "payments", "webhooks", "concurrency", "rest api", "microservices"]
+  },
+
+  "frontend_engineer": {
+    "resumeFile": "Olatunji_Oladipupo_CV.pdf",
+    "titleKeywords": ["frontend", "front-end", "front end", "react developer", "ui engineer", "web developer"],
+    "skillKeywords": ["react", "tailwind", "css", "redux", "vite", "web application"]
+  },
+
+  "notes": "fullstack_engineer is the default/primary resume. Edit the keyword lists any time to improve matching as you see real results."
 }

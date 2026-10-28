@@ -1,9 +1,10 @@
 # Job Pipeline
 
 A Next.js app that finds remote developer jobs every day, filters them by
-country, scores them against your three CVs, logs everything in a Google
-Sheet, and gives you a dashboard to approve and apply from. Built for Daniel
-Chimezie. Runs on your PC for testing and on a RackNerd VPS for the daily run.
+country, scores them against your CVs, logs everything in a Google
+Sheet, and gives you a dashboard to approve and apply from. Forked from
+0xDaniiel/Job-pipeline and set up for Olatunji Oladipupo (full-stack,
+TypeScript/Node.js). Runs on your PC for testing and on a RackNerd VPS for the daily run.
 
 ## How it works
 
@@ -50,7 +51,7 @@ are ever submitted for you; web forms are always submitted by you.
 | ---------------- | ------------------------------------------------------------------------------ |
 | `countries.json` | Countries where mid-level developer pay clears $28K a year.                    |
 | `companies.json` | Company names checked on Greenhouse, Lever, Ashby, BambooHR.                   |
-| `cvMapping.json` | Title and skill keywords that choose between your 3 CVs.                       |
+| `cvMapping.json` | Title and skill keywords that choose between your CVs.                         |
 | `applyKit.json`  | Your details and saved answers for the Apply kit. Replace the `EDIT ME` lines. |
 
 ### `app/`
@@ -62,7 +63,7 @@ are ever submitted for you; web forms are always submitted by you.
 | `api/approve/route.js` | Approve and status changes. Sends email applications.           |
 | `api/jobs/route.js`    | Reads the sheet for the dashboard.                              |
 | `api/kit/route.js`     | Serves `applyKit.json` to the dashboard.                        |
-| `api/resume/route.js`  | Downloads one of the 3 CVs.                                     |
+| `api/resume/route.js`  | Downloads one of your CVs.                                      |
 | `api/clear/route.js`   | Clear all (only works when `ALLOW_CLEAR=true`).                 |
 | `api/format/route.js`  | One-time sheet styling. Run it once.                            |
 
@@ -88,7 +89,8 @@ are ever submitted for you; web forms are always submitted by you.
 
 ### Other
 
-`resumes/` holds your 3 CV PDFs. `cron/` holds the scripts that call `/api/run`
+`resumes/` holds your CV PDFs (git-ignored: this repo is public, so copy
+them onto the VPS yourself). `cron/` holds the scripts that call `/api/run`
 daily. `logs/` holds the daily run log.
 
 ## Settings (`.env.local`)
