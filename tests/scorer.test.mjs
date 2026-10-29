@@ -47,6 +47,50 @@ test("jobs that are not a fit fall below the minimum score", () => {
   }
 });
 
+test("a posting that requires a language you don't use falls below the minimum", () => {
+  for (const extra of [
+    "(Required) Have 4+ years of professional experience writing and shipping Go in production.",
+    "Have strong software engineering skills (Go and Typescript required).",
+    "Strong coding skills in Java, with a working understanding of microservices.",
+    "Experience as Fullstack Web3 developer. Web3: High level of Solidity (demonstrated experience).",
+    "Build custom WordPress themes. Strong WordPress and PHP skills. WordPress block themes. PHP templates. WordPress plugins.",
+  ]) {
+    const j = job("Full Stack Developer", { description: skills + extra });
+    assert.ok(computeMatchScore(j) < MINIMUM, extra);
+  }
+});
+
+test("a language listed as one option among several is not penalised", () => {
+  const j = job("Software Engineer", {
+    description:
+      skills +
+      "Proficiency in languages such as Go, TypeScript, Python, Rust, or Ruby. " +
+      "3+ years of experience in one or more general-purpose programming languages; Go, Python, Rust, Ruby.",
+  });
+  assert.ok(computeMatchScore(j) >= 80);
+});
+
+test("asking for more years than you have lowers the score", () => {
+  const score = (years) =>
+    computeMatchScore(
+      job("Full Stack Engineer", {
+        description: skills + `${years}+ years of software engineering experience.`,
+      }),
+    );
+  assert.ok(score(3) > score(5));
+  assert.ok(score(5) > score(7));
+});
+
+test("non-engineering and mobile roles fall below the minimum", () => {
+  for (const title of [
+    "Sr REACT NATIVE",
+    "Technical Curriculum Developer, Technical Enablement",
+    "Technical Services Engineer",
+  ]) {
+    assert.ok(computeMatchScore(job(title)) < MINIMUM, title);
+  }
+});
+
 test("a full-stack role that mentions backend is not rejected", () => {
   assert.ok(
     computeMatchScore(job("Senior Full Stack Engineer (Backend heavy)")) >=

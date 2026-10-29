@@ -84,15 +84,59 @@ test("remote-only boards are always remote, even with just a country name", () =
   );
 });
 
-test("filterJobs drops ineligible countries and adds the restricted flag", () => {
+test("filterJobs keeps only jobs open to someone in Nigeria", () => {
   const out = filterJobs([
     { source: "ashby", title: "Dev", location: "Remote - USA" },
     { source: "ashby", title: "Dev", location: "Lagos, Nigeria" },
     { source: "ashby", title: "Dev", location: "Remote, EMEA" },
+    { source: "ashby", title: "Dev", location: "Remote - Nigeria" },
+    { source: "ashby", title: "Dev", location: "Remote, Europe" },
+    { source: "ashby", title: "Dev", location: "Europe, USA, Canada, APAC" },
+    { source: "ashby", title: "Dev", location: "Mexico City" },
+    { source: "ashby", title: "Dev", location: "Remote - India" },
+  ]);
+  assert.deepEqual(
+    out.map((j) => j.location),
+    ["Remote, EMEA", "Remote - Nigeria"],
+  );
+  assert.ok(out.every((j) => j.locationRestricted === false));
+});
+
+test("hiring limits written in the title or description are caught", () => {
+  const job = (title, description) => ({
+    source: "weworkremotely",
+    title,
+    location: "Remote",
+    description,
+  });
+  for (const j of [
+    job("Software Development Engineer II (Remote @ Colombia)", ""),
+    job("Front-End Developer", "Location: Fully Remote (US)"),
+    job("Full Stack Developer", "For this role, we can hire candidates based in the UK, Ireland, Germany"),
+    job("Fullstack Engineer", "100% Remote but ONLY residents of countries with US time zones (EST-PST)"),
+    job("Frontend Engineer, Ads", "Headquarters: Remote - United States"),
+    job("Backend Engineer", "Candidates must be based in the US."),
+  ]) {
+    assert.equal(filterJobs([j]).length, 0, j.title);
+  }
+});
+
+test("a description that also opens the job to Africa or worldwide is kept", () => {
+  const out = filterJobs([
+    {
+      source: "remotive",
+      title: "Backend Engineer",
+      location: "Remote",
+      description: "Must be authorized to work in the US or based anywhere in Africa.",
+    },
+    {
+      source: "remotive",
+      title: "AI Coding Tasks",
+      location: "Worldwide",
+      description: "Remote, any location.",
+    },
   ]);
   assert.equal(out.length, 2);
-  assert.equal(out[0].locationRestricted, true);
-  assert.equal(out[1].locationRestricted, false);
 });
 
 test("deduplicate removes known links, repeats and jobs with no link", () => {

@@ -1,5 +1,8 @@
 {
   "_comment": "Countries where mid-level developer pay, converted to USD, clears $28,000/year ($2,333/month). Static, manually researched list, not a live feed. Review every few months. A posting with no specific country requirement ('Remote, Worldwide') always passes regardless of this list.",
+  "candidate_country": "Nigeria",
+  "_open_to_candidate_only": "true: drop jobs that only hire in named countries or regions (Remote - USA, Europe, UK only, US time zones) unless they include candidate_country or Africa/EMEA/worldwide. false: keep them with a 'Check location eligibility' note.",
+  "open_to_candidate_only": true,
   "monthly_floor_usd": 2333,
   "annual_floor_usd": 28000,
   "eligible_countries": [
